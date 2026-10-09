@@ -1,0 +1,54 @@
+{
+  "category.autolibrarian": "Auto Librarian",
+  "key.autolibrarian.toggle": "動作の切替",
+  "key.autolibrarian.menu": "設定メニュー表示",
+
+  "general.autolibrarian.on": "§aON",
+  "general.autolibrarian.off": "§cOFF",
+  "general.autolibrarian.add": "追加",
+  "general.autolibrarian.add_new": "追加…",
+  "general.autolibrarian.remove": "削除",
+  "general.autolibrarian.back": "戻る",
+
+  "gui.autolibrarian.config.title": "Auto Librarian の設定",
+  "gui.autolibrarian.config.general": "一般設定",
+  "gui.autolibrarian.config.target_book": "ウィッシュリスト",
+  "gui.autolibrarian.config.show_status": "動作ステータスの表示",
+  "gui.autolibrarian.config.using_colored_cost": "理論値の強調表示",
+  "gui.autolibrarian.config.using_axe": "書見台破壊に斧を使用",
+  "gui.autolibrarian.config.axe_protection": "斧破壊保護",
+  "gui.autolibrarian.config.axe_protection_value": "斧破壊保護対象耐久値",
+  "gui.autolibrarian.config.axe_protection_all": "§a全て",
+  "gui.autolibrarian.config.axe_protection_enchanted": "§dエンチャント品のみ",
+  "gui.autolibrarian.config.foundafter": "目標エンチャント本出現後の処理",
+  "gui.autolibrarian.config.foundafter_price": "§e価格を更新",
+  "gui.autolibrarian.config.foundafter_remove": "§dリストから消去",
+
+  "gui.autolibrarian.config_tips.show_status": "Mod動作中、現在のModの状態を表示します。",
+  "gui.autolibrarian.config_tips.using_color_cost": "村人との取引価格が理論値の場合、チャットに通知されるエメラルド価格の文字色が専用色になります。\n§d最安値はこの色で表示されます。\n§4最高値はこの色で表示されます。\n§7§oこの設定を有効にするとjson側の装飾コードは無視されます。",
+  "gui.autolibrarian.config_tips.using_axe": "書見台破壊時、ホットバーに斧がある場合は自動的に使用します。",
+  "gui.autolibrarian.config_tips.axe_protection": "Modが斧を使用する場合に、斧が破壊されないよう保護する設定です。",
+  "gui.autolibrarian.config_tips.axe_protection_value": "斧破壊保護設定が作動する耐久値を指定できます。耐久値がここで指定した値に達するまで、Modは斧を使用し続けます。",
+  "gui.autolibrarian.config_tips.foundafter": "目的のエンチャント本が取引内容に表示された際の処理内容を設定できます。",
+
+  "gui.autolibrarian.target_books.enchant_level": "レベル: ",
+  "gui.autolibrarian.target_books.sell_price": "価格: ",
+
+  "status.autolibrarian.destroy": "書見台破壊中…",
+  "status.autolibrarian.wait_destroy": "破壊完了を待機…",
+  "status.autolibrarian.wait_unemployed": "村人の失業を待機…",
+  "status.autolibrarian.place": "書見台設置中…",
+  "status.autolibrarian.wait_librarian": "村人の就職を待機…",
+  "status.autolibrarian.talk": "村人にコンタクト中…",
+  "status.autolibrarian.check_trade": "取引内容確認中…",
+
+  "message.autolibrarian.no_target_book": "§cAutoLibrarianを実行する前に、まず設定画面よりエンチャント本を指定してください。",
+  "message.autolibrarian.not_enough_space": "§cAutoLibrarianを実行するために必要なスペースがありません。",
+  "message.autolibrarian.no_lectern": "§cAutoLibrarianを使用するには、書見台をホットバーに準備して下さい。",
+  "message.autolibrarian.axes_tip": "§bヒント：斧をホットバーに入れていると早く書見台を回収できます。",
+  "message.autolibrarian.whynotuse_myaxes_tip": "§3§o(耐久値が著しく低下している斧は使用されません。)",
+  "message.autolibrarian.missing_lectern": "§c書見台がホットバーにありません。AutoLibrarianを終了します…",
+  "message.autolibrarian.trade_detail": "§f%1$s - %2$sエメラルド",
+  "message.autolibrarian.trade_nobook": "§7§oエンチャント本を販売していないようです…"
+
+}

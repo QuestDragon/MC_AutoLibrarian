@@ -1,0 +1,54 @@
+{
+  "category.autolibrarian": "Auto Librarian",
+  "key.autolibrarian.toggle": "Toggle Auto Librarian",
+  "key.autolibrarian.menu": "Open menu Auto Librarian",
+
+  "general.autolibrarian.on": "§aON",
+  "general.autolibrarian.off": "§cOFF",
+  "general.autolibrarian.add": "Add",
+  "general.autolibrarian.add_new": "Add new...",
+  "general.autolibrarian.remove": "Remove",
+  "general.autolibrarian.back": "Back",
+
+  "gui.autolibrarian.config.title": "Auto Librarian settings",
+  "gui.autolibrarian.config.general": "General settings",
+  "gui.autolibrarian.config.target_book": "Target books",
+  "gui.autolibrarian.config.show_status": "Show status",
+  "gui.autolibrarian.config.using_colored_cost": "Highlight of theoretical value",
+  "gui.autolibrarian.config.using_axe": "Using axe",
+  "gui.autolibrarian.config.axe_protection": "Axe protection",
+  "gui.autolibrarian.config.axe_protection_value": "Axe protect durability",
+  "gui.autolibrarian.config.axe_protection_all": "§aAll",
+  "gui.autolibrarian.config.axe_protection_enchanted": "§dOnly enchanted",
+  "gui.autolibrarian.config.foundafter": "After operation",
+  "gui.autolibrarian.config.foundafter_price": "§eUpdate price",
+  "gui.autolibrarian.config.foundafter_remove": "§dRemove",
+
+  "gui.autolibrarian.config_tips.show_status": "Displays the current status of the mod while it is running.",
+  "gui.autolibrarian.config_tips.using_color_cost": "When the trade price with a villager matches the theoretical value, the text color of the emerald price displayed in the chat changes to a special color.\n§dThe lowest price is displayed in this color.\n§4The highest value is displayed in this color.\n§7§oIf this setting is enabled, the formatting codes in the JSON will be ignored.",
+  "gui.autolibrarian.config_tips.using_axe": "If an axe is in your hotbar when the lectern is destroyed, it will be used automatically.",
+  "gui.autolibrarian.config_tips.axe_protection": "This setting prevents axes from being destroyed when used by a mod.",
+  "gui.autolibrarian.config_tips.axe_protection_value": "You can specify the durability threshold at which the axe breakage protection activates.\nThe mod will continue to use the axe until its durability reaches the specified value.",
+  "gui.autolibrarian.config_tips.foundafter": "You can configure the behavior when the desired enchanted book appears in the trade offers.",
+
+  "gui.autolibrarian.target_books.enchant_level": "Lv: ",
+  "gui.autolibrarian.target_books.sell_price": "Price: ",
+
+  "status.autolibrarian.destroy": "Destroying the lectern...",
+  "status.autolibrarian.wait_destroy": "Waiting for destruction to complete...",
+  "status.autolibrarian.wait_unemployed": "Waiting for villager to become unemployed...",
+  "status.autolibrarian.place": "Lectern being place...",
+  "status.autolibrarian.wait_librarian": "Waiting for villager to become a librarian...",
+  "status.autolibrarian.talk": "Contacting the villager...",
+  "status.autolibrarian.check_trade": "Verifying transaction details...",
+
+  "message.autolibrarian.no_target_book": "§cBefore enable AutoLibrarian, please first specify the enchanted books in the settings screen.",
+  "message.autolibrarian.not_enough_space": "§cThere is not enough space to run AutoLibrarian.",
+  "message.autolibrarian.no_lectern": "§cTo use AutoLibrarian, please prepare a lectern in your hotbar.",
+  "message.autolibrarian.axes_tip": "§bTip: Having an axe in your hotbar allows you to retrieve the lectern more quickly.",
+  "message.autolibrarian.whynotuse_myaxes_tip": "§3§o(Axes with significantly reduced durability will not be used.)",
+  "message.autolibrarian.missing_lectern": "§cThe lectern is not on the hotbar. Disabling AutoLibrarian...",
+  "message.autolibrarian.trade_detail": "§f%1$s - %2$semeralds",
+  "message.autolibrarian.trade_nobook": "§7§oIt seems they aren't selling enchanted books..."
+
+}
