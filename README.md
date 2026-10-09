@@ -115,102 +115,58 @@ Minecraftの言語設定に応じて本Modが表記する内容を編集する�
 日本語の場合はja_jp.jsonをご使用ください。
 
 以下にキーと使われている場所について記述しておきます。
+    "category.autolibrarian": 操作設定内のカテゴリ名
+    "key.autolibrarian.toggle": 操作設定内のMod動作切り替え用キー設定名
+    "key.autolibrarian.menu": 操作設定内のMod設定メニュー表示用キー設定名
 
-    `"category.autolibrarian"`: 操作設定内のカテゴリ名
+    "general.autolibrarian.on": Modの至る所で使われる、オンの時の文字
+    "general.autolibrarian.off": Modの至る所で使われる、オフの時の文字
+    "general.autolibrarian.add": Modの至る所（現状は本設定画面）で使われる、追加ボタンの文字
+    "general.autolibrarian.add_new": Modの至る所（現状は本設定画面）で使われる、追加画面に遷移するボタンの文字
+    "general.autolibrarian.remove": Modの至る所（現状は本設定画面）で使われる、削除ボタンの文字
+    "general.autolibrarian.back": Modの至る所（現状は本設定画面）で使われる、戻るボタンの文字
 
-    `"key.autolibrarian.toggle"`: 操作設定内のMod動作切り替え用キー設定名
+    "gui.autolibrarian.config.title": Modの設定画面上部に表示されるタイトル
+    "gui.autolibrarian.config.general": Modの一般設定を表示するためのボタンの文字
+    "gui.autolibrarian.config.target_book": Modのエンチャント本指定設定画面を表示するためのボタンの文字
+    "gui.autolibrarian.config.show_status": Modの一般設定画面における、Mod動作ステータスを表示させる設定項目の表示文字
+    "gui.autolibrarian.config.using_colored_cost": Modの一般設定画面における、Mod動作時に取引内容を通知するチャットの価格部分を専用色にする設定項目の表示文字
+    "gui.autolibrarian.config.using_axe": Modの一般設定画面における、書見台破壊に斧を使用する設定項目の表示文字
+    "gui.autolibrarian.config.axe_protection": Modの一般設定画面における、斧の使用時に耐久値に基づいて斧を保護する設定項目の表示文字
+    "gui.autolibrarian.config.axe_protection_value": Modの一般設定画面における、斧の許容耐久値を設定する項目の表示文字
+    "gui.autolibrarian.config.axe_protection_all": Modの一般設定画面内、斧破壊保護設定における、斧の破損防止機能の動作対象を全ての斧に設定する場合の設定名
+    "gui.autolibrarian.config.axe_protection_enchanted": Modの一般設定画面内、斧破壊保護設定における、斧の破損防止機能の動作対象をエンチャント済み斧にのみ設定する場合の設定名
+    "gui.autolibrarian.config.foundafter": Modの一般設定画面における、目的のエンチャントが取引画面に出現した際に行われる処理の設定項目の表示文字
+    "gui.autolibrarian.config.foundafter_price": Modの一般設定画面内、目的エンチャント発見後処理における、価格を今回の結果より1下げて更新する場合の設定名
+    "gui.autolibrarian.config.foundafter_remove": Modの一般設定画面内、目的エンチャント発見後処理における、該当エンチャント本を削除する場合の設定名
 
-    `"key.autolibrarian.menu"`: 操作設定内のMod設定メニュー表示用キー設定名
+    "gui.autolibrarian.config_tips.show_status": Modの一般設定画面における、Mod動作ステータスを表示させる設定項目のツールチップ内容
+    "gui.autolibrarian.config_tips.using_color_cost": Modの一般設定画面における、Mod動作時に取引内容を通知するチャットの価格部分を専用色にする設定項目のツールチップ内容
+    "gui.autolibrarian.config_tips.using_axe": Modの一般設定画面における、書見台破壊に斧を使用する設定項目のツールチップ内容
+    "gui.autolibrarian.config_tips.axe_protection": Modの一般設定画面における、斧の使用時に耐久値に基づいて斧を保護する設定項目のツールチップ内容
+    "gui.autolibrarian.config_tips.axe_protection_value": Modの一般設定画面における、斧の許容耐久値を設定する項目のツールチップ内容
+    "gui.autolibrarian.config_tips.foundafter": Modの一般設定画面における、目的のエンチャントが取引画面に出現した際に行われる処理の設定項目のツールチップ内容
 
+    "gui.autolibrarian.target_books.enchant_level": Modのエンチャント本設定画面における、目的のエンチャントのレベルを指定する欄の表示文字
+    "gui.autolibrarian.target_books.sell_price": Modのエンチャント本設定画面における、目的のエンチャントの許容取引価格を指定する欄の表示文字
 
-    `"general.autolibrarian.on"`: Modの至る所で使われる、オンの時の文字
+    "status.autolibrarian.destroy": Mod動作時、書見台破壊開始時に表示されるステータス内容
+    "status.autolibrarian.wait_destroy": Mod動作時、書見台破壊中に表示されるステータス内容
+    "status.autolibrarian.wait_unemployed": Mod動作時、村人が無職に戻るまで待機している際に表示されるステータス内容
+    "status.autolibrarian.place": Mod動作時、書見台設置中に表示されるステータス内容
+    "status.autolibrarian.wait_librarian": Mod動作時、村人が司書に就職するまで待機している際に表示されるステータス内容
+    "status.autolibrarian.talk": Mod動作時、村人の取引画面を表示しようとしている際に表示されるステータス内容
+    "status.autolibrarian.check_trade": Mod動作時、村人の取引内容を確認している際に表示されるステータス内容
 
-    `"general.autolibrarian.off"`: Modの至る所で使われる、オフの時の文字
-
-    `"general.autolibrarian.add"`: Modの至る所（現状は本設定画面）で使われる、追加ボタンの文字
-
-    `"general.autolibrarian.add_new"`: Modの至る所（現状は本設定画面）で使われる、追加画面に遷移するボタンの文字
-
-    `"general.autolibrarian.remove"`: Modの至る所（現状は本設定画面）で使われる、削除ボタンの文字
-
-    `"general.autolibrarian.back"`: Modの至る所（現状は本設定画面）で使われる、戻るボタンの文字
-
-
-    `"gui.autolibrarian.config.title"`: Modの設定画面上部に表示されるタイトル
-
-    `"gui.autolibrarian.config.general"`: Modの一般設定を表示するためのボタンの文字
-
-    `"gui.autolibrarian.config.target_book"`: Modのエンチャント本指定設定画面を表示するためのボタンの文字
-
-    `"gui.autolibrarian.config.show_status"`: Modの一般設定画面における、Mod動作ステータスを表示させる設定項目の表示文字
-
-    `"gui.autolibrarian.config.using_colored_cost"`: Modの一般設定画面における、Mod動作時に取引内容を通知するチャットの価格部分を専用色にする設定項目の表示文字
-
-    `"gui.autolibrarian.config.using_axe"`: Modの一般設定画面における、書見台破壊に斧を使用する設定項目の表示文字
-
-    `"gui.autolibrarian.config.axe_protection"`: Modの一般設定画面における、斧の使用時に耐久値に基づいて斧を保護する設定項目の表示文字
-
-    `"gui.autolibrarian.config.axe_protection_value"`: Modの一般設定画面における、斧の許容耐久値を設定する項目の表示文字
-
-    `"gui.autolibrarian.config.axe_protection_all"`: Modの一般設定画面内、斧破壊保護設定における、斧の破損防止機能の動作対象を全ての斧に設定する場合の設定名
-
-    `"gui.autolibrarian.config.axe_protection_enchanted"`: Modの一般設定画面内、斧破壊保護設定における、斧の破損防止機能の動作対象をエンチャント済み斧にのみ設定する場合の設定名
-
-    `"gui.autolibrarian.config.foundafter"`: Modの一般設定画面における、目的のエンチャントが取引画面に出現した際に行われる処理の設定項目の表示文字
-
-    `"gui.autolibrarian.config.foundafter_price"`: Modの一般設定画面内、目的エンチャント発見後処理における、価格を今回の結果より1下げて更新する場合の設定名
-
-    `"gui.autolibrarian.config.foundafter_remove"`: Modの一般設定画面内、目的エンチャント発見後処理における、該当エンチャント本を削除する場合の設定名
-
-
-    `"gui.autolibrarian.config_tips.show_status"`: Modの一般設定画面における、Mod動作ステータスを表示させる設定項目のツールチップ内容
-
-    `"gui.autolibrarian.config_tips.using_color_cost"`: Modの一般設定画面における、Mod動作時に取引内容を通知するチャットの価格部分を専用色にする設定項目のツールチップ内容
-
-    `"gui.autolibrarian.config_tips.using_axe"`: Modの一般設定画面における、書見台破壊に斧を使用する設定項目のツールチップ内容
-
-    `"gui.autolibrarian.config_tips.axe_protection"`: Modの一般設定画面における、斧の使用時に耐久値に基づいて斧を保護する設定項目のツールチップ内容
-
-    `"gui.autolibrarian.config_tips.axe_protection_value"`: Modの一般設定画面における、斧の許容耐久値を設定する項目のツールチップ内容
-
-    `"gui.autolibrarian.config_tips.foundafter"`: Modの一般設定画面における、目的のエンチャントが取引画面に出現した際に行われる処理の設定項目のツールチップ内容
-
-    `"gui.autolibrarian.target_books.enchant_level"`: Modのエンチャント本設定画面における、目的のエンチャントのレベルを指定する欄の表示文字
-    
-	`"gui.autolibrarian.target_books.sell_price"`: Modのエンチャント本設定画面における、目的のエンチャントの許容取引価格を指定する欄の表示文字
-
-
-    `"status.autolibrarian.destroy"`: Mod動作時、書見台破壊開始時に表示されるステータス内容
-    
-	`"status.autolibrarian.wait_destroy"`: Mod動作時、書見台破壊中に表示されるステータス内容
-    
-	`"status.autolibrarian.wait_unemployed"`: Mod動作時、村人が無職に戻るまで待機している際に表示されるステータス内容
-    
-	`"status.autolibrarian.place"`: Mod動作時、書見台設置中に表示されるステータス内容
-    
-	`"status.autolibrarian.wait_librarian"`: Mod動作時、村人が司書に就職するまで待機している際に表示されるステータス内容
-    
-	`"status.autolibrarian.talk"`: Mod動作時、村人の取引画面を表示しようとしている際に表示されるステータス内容
-    
-	`"status.autolibrarian.check_trade"`: Mod動作時、村人の取引内容を確認している際に表示されるステータス内容
-
-
-    `"message.autolibrarian.no_target_book"`: Mod動作開始時、目的のエンチャント本を1つも指定していない場合のメッセージ文
-    
-	`"message.autolibrarian.not_enough_space"`: Mod動作開始時、書見台を設置するスペースがない場合のメッセージ文
-    
-	`"message.autolibrarian.no_lectern"`: Mod動作開始時、書見台をホットバーに入れてない場合のメッセージ文
-    
-	`"message.autolibrarian.axes_tip"`: Mod動作開始時、斧をホットバーに入れてない場合のメッセージ文
-    
-	`"message.autolibrarian.whynotuse_myaxes_tip"`: Mod動作開始時、耐久値が少ししかない斧をホットバーに入れている場合のメッセージ文
-    
-	`"message.autolibrarian.missing_lectern"`: Mod動作開始時、書見台をホットバーに入れてない場合のメッセージ文
-    
-	`"message.autolibrarian.trade_detail"`: Mod動作時、取引内容にエンチャント本が含まれていた場合の販売内容
+    "message.autolibrarian.no_target_book": Mod動作開始時、目的のエンチャント本を1つも指定していない場合のメッセージ文
+    "message.autolibrarian.not_enough_space": Mod動作開始時、書見台を設置するスペースがない場合のメッセージ文
+    "message.autolibrarian.no_lectern": Mod動作開始時、書見台をホットバーに入れてない場合のメッセージ文
+    "message.autolibrarian.axes_tip": Mod動作開始時、斧をホットバーに入れてない場合のメッセージ文
+    "message.autolibrarian.whynotuse_myaxes_tip": Mod動作開始時、耐久値が少ししかない斧をホットバーに入れている場合のメッセージ文
+    "message.autolibrarian.missing_lectern": Mod動作開始時、書見台をホットバーに入れてない場合のメッセージ文
+    "message.autolibrarian.trade_detail": Mod動作時、取引内容にエンチャント本が含まれていた場合の販売内容
     （%1$sにはエンチャント名とレベル、%2$sにはエメラルド価格が入ります。エメラルド価格は自動で文字色が変わるので、独自の文字色は現在のところ設定できません。）
-    
-	`"message.autolibrarian.trade_nobook"`: Mod動作に、取引内容にエンチャント本が含まれていなかった場合のメッセージ文
+    "message.autolibrarian.trade_nobook": Mod動作に、取引内容にエンチャント本が含まれていなかった場合のメッセージ文
 
 
 ## 余談
