@@ -296,6 +296,7 @@ public class AutoRerollHandler {
                     boolean FoundBook = false;
                     boolean IsTheoreticalCost = false; //理論値であるか
                     boolean IsBottakuriCost = false; //ぼったくられてるか
+                    String EnchNameColor = ""; //チャットに通知するためのエンチャント名の文字色
 
                     for (MerchantOffer offer : offers) {
                         ItemStack resultStack = offer.getResult();
@@ -316,10 +317,10 @@ public class AutoRerollHandler {
                                 // 例: 「シルクタッチ」「効率強化 V」「修繕」など（言語設定に合わせて自動翻訳）
                                 Component enchNameComponent = enchantment.getFullname(level); //情報取得
                                 enchNameLocalize = enchNameComponent.getString(); //文字列変換（まとめちゃうとダメ。ちゃんと分ける。）
-                                String descriptionId = enchantment.getDescriptionId();
                                 // 例: 変数宣言部で ResourceLocation から正確な ID を取得
                                 ResourceLocation location = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
                                 String enchId = (location != null) ? location.toString() : ""; // "minecraft:silk_touch" が入る
+                                EnchNameColor = enchId.contains("curse") ? "§c" : "§e";
 
                                 // 理論値か確認
                                 IsTheoreticalCost = TheoreticalCheck(level, emeraldCost, false, enchantment.isTreasureOnly());
@@ -350,7 +351,6 @@ public class AutoRerollHandler {
                         }
                     }
 
-                    String EnchNameColor = enchNameLocalize.contains("Curse") ? "§c" : "§e";
                     String CostColor = "";
                     if (ModConfig.UsingColoredCost){
                         CostColor = "§a";

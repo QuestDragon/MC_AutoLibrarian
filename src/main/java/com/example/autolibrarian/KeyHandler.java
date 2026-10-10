@@ -93,13 +93,15 @@ public class KeyHandler {
                             // 違う！
                             Component msg = Component.translatable("message.autolibrarian.no_target_book");
                             player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
+                            mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
                             return;
                         }
-                        // メインハンドのアイテムが「書見台（LECTERN）」かチェック
+                        // ホットバーのアイテムが「書見台（LECTERN）」かチェック
                         if (!LecternChecker(mc)) {
                             // 違う！
                             Component msg = Component.translatable("message.autolibrarian.no_lectern");
                             player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
+                            mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
                             return;
                         }
                         // 書見台を持っているか、ホットバーにある！
@@ -140,10 +142,7 @@ public class KeyHandler {
                     // ホットバーに書見台があったので、そのスロットに持ち替える！
                     mc.player.getInventory().selected = lecternSlot;
                     return true;
-                } else {
-                    mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
-                    return false;
-                }
+                } else return false;
             }
         }
     }
