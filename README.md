@@ -1,7 +1,11 @@
 # AutoLibrarian - Created By QuestDragon
-Product version: 1.0.1
+## Version
+### Product version
+1.0.2
 
-Compatible with Minecraft version: Forge 1.20.1
+### Compatible with Minecraft version
+Forge 1.20.1 - 47.4.10
+
 ## 作成した経緯
 あるFabricのModには司書ガチャを自動で行ってくれる機能が入っていたんです。
 
