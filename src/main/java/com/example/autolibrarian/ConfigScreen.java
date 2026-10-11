@@ -406,9 +406,25 @@ public class ConfigScreen extends Screen {
                         int maxLv = getSelectedEnchantmentMaxLevel();
                         if (this.selectedLevel > maxLv) this.selectedLevel = maxLv;
 
-                        // 重複追加を避けるためのチェック＆追加処理
-                        ModConfig.TargetBooks.removeIf(bb -> bb.enchantmentId.equals(this.selectedEnchantmentId));
-                        ModConfig.TargetBooks.add(new ModConfig.TargetBook(this.selectedEnchantmentId, this.selectedLevel, this.selectedMaxPrice));
+                        // 重複追加を避けるためのチェック＆追加処理 ※過去
+                        // ModConfig.TargetBooks.removeIf(bb -> bb.enchantmentId.equals(this.selectedEnchantmentId));
+                        // ModConfig.TargetBooks.add(new ModConfig.TargetBook(this.selectedEnchantmentId, this.selectedLevel, this.selectedMaxPrice));
+
+                        boolean exactMatchExists = false;
+
+                        for (ModConfig.TargetBook book : ModConfig.TargetBooks) {
+                            if (book.enchantmentId.equalsIgnoreCase(selectedEnchantmentId) && book.level == selectedLevel) {
+                                // 同じIDかつ同じレベルのものが既にある場合は価格だけ更新
+                                book.maxPrice = selectedMaxPrice;
+                                exactMatchExists = true;
+                                break;
+                            }
+                        }
+
+                        // 同じIDであってもレベルが違えば（例: Silk Touch Lv.1 と Lv.2 など）、別のエントリとして新規追加を許可する
+                        if (!exactMatchExists) {
+                            ModConfig.TargetBooks.add(new ModConfig.TargetBook(selectedEnchantmentId, selectedLevel, selectedMaxPrice));
+                        }
 
                         // 設定ファイルに保存
                         ModConfig.save();
