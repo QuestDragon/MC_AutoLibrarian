@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector2i;
+import oshi.jna.platform.mac.SystemB;
 
 import java.awt.*;
 import java.util.List;
@@ -75,9 +76,14 @@ public class ConfigScreen extends Screen {
                 }
 
                 String EnchNameColor = displayName.getString().contains("Curse") ? "§c" : "";
+                String PriceColor = "§a";
+                boolean IsTheoretical = AutoRerollHandler.TheoreticalCheck(book.level, book.maxPrice, false, isTreasureFromStr(book.enchantmentId));
+                boolean IsInTheoretical = AutoRerollHandler.TheoreticalCheck(book.level, book.maxPrice,  true, isTreasureFromStr(book.enchantmentId));
+                if (IsTheoretical) PriceColor = "§d";
+                if (IsInTheoretical) PriceColor = "§2";
 
                 // 実際にリストに表示される内容
-                Component name = Component.literal(EnchNameColor + displayName.getString() + "§f / " + Label_Price.getString() + "§a" +  book.maxPrice);
+                Component name = Component.literal(EnchNameColor + displayName.getString() + "§f / " + Label_Price.getString() + PriceColor +  book.maxPrice);
 
                 // 最後にリストオブジェクトへ必要データと共に渡す。そうすると選択状態になるので、内部変数へ情報を入れておく。
                 this.enchantmentList.addEntry(new EnchantmentListWidget.Entry(name, book.enchantmentId, () -> {
@@ -130,7 +136,7 @@ public class ConfigScreen extends Screen {
 
     // 価格変更用の処理
     private void updateSelectedPrice(int delta) {
-        this.selectedMaxPrice = Math.min(90, Math.max(1, this.selectedMaxPrice + delta)); // 1〜90の範囲に制限 ※トレジャーエンチャント理論最大値（Lv.3 = 45 x 2）
+        this.selectedMaxPrice = Math.min(64, Math.max(1, this.selectedMaxPrice + delta)); // 1〜90の範囲に制限 ※トレジャーエンチャント理論最大値（Lv.3 = 45 x 2） …だが、取引スロットは2つしかない上、エメラルドと本を使うためエメラルドは1スタック上限64が限界値となる。
 
         // 指定リストモードかつ項目が選択中なら、設定データもリアルタイム更新
         if (!this.isSelectingMode && !this.selectedEnchantmentId.isEmpty()) {
@@ -498,7 +504,12 @@ public class ConfigScreen extends Screen {
 
             // "Max price: 20" の描画（エメラルドアイコンっぽく緑色 0x55FF55 にしてもお洒落です）
             Component Label_Price = Component.translatable("gui.autolibrarian.target_books.sell_price");
-            guiGraphics.drawString(this.font, Component.literal(Label_Price.getString() +"§a" + selectedMaxPrice), centerX + 5, bottomY + 30, 0xFFFFFFFF);
+            String PriceColor = "§a";
+            boolean IsTheoretical = AutoRerollHandler.TheoreticalCheck(selectedLevel, selectedMaxPrice, false, isTreasureFromStr(selectedEnchantmentId));
+            boolean IsInTheoretical = AutoRerollHandler.TheoreticalCheck(selectedLevel, selectedMaxPrice,  true, isTreasureFromStr(selectedEnchantmentId));
+            if (IsTheoretical) PriceColor = "§d";
+            if (IsInTheoretical) PriceColor = "§2";
+            guiGraphics.drawString(this.font, Component.literal(Label_Price.getString() + PriceColor + selectedMaxPrice), centerX + 5, bottomY + 30, 0xFFFFFFFF);
 
             // 画面に登録されているすべてのボタン（Widget）を、土背景の「上から」一番手前に描画する！
             for (var widget : this.children()) {
@@ -539,6 +550,19 @@ public class ConfigScreen extends Screen {
             }
         }
 
+    }
+
+    private static boolean isTreasureFromStr(String enchantmentIdStr) {
+        // 1. 文字列から ResourceLocation に変換（例: "minecraft:mending"）
+        ResourceLocation location = ResourceLocation.tryParse(enchantmentIdStr);
+        if (location == null) return false;
+
+        // 2. レジストリから Enchantment インスタンスを取得
+        Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.getValue(location);
+        if (enchantment == null) return false;
+
+        // 3. 宝物エンチャント（トレジャー）かどうかを判定
+        return enchantment.isTreasureOnly();
     }
 
     @Override

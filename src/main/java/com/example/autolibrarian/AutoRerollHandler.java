@@ -521,11 +521,11 @@ public class AutoRerollHandler {
         else return -1; // 見つからなかった
     }
 
-    private static boolean TheoreticalCheck(int Lv, int Cost, boolean IsInverted, boolean IsTreasure){
+    public static boolean TheoreticalCheck(int Lv, int Cost, boolean IsInverted, boolean IsTreasure){
         int Multiply = IsTreasure ? 2 : 1; //トレジャーエンチャントなら2倍の値段になる。
         List<Integer> TheoreticalList = List.of(5,8,11,14,17);
         if (IsInverted){
-            TheoreticalList  = List.of(19,32,45,58,71);
+            TheoreticalList  = List.of(19,32,45,58,64);
             return TheoreticalList.get(Lv - 1) * Multiply <= Cost;
         }
         else {
