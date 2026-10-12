@@ -1,7 +1,7 @@
 # AutoLibrarian - Created By QuestDragon
 ## Version
 ### Product version
-1.0.2
+1.0.3
 
 ### Compatible with Minecraft version
 Forge 1.20.1 - 47.4.10
