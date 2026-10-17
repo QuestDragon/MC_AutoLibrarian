@@ -140,6 +140,8 @@ public class AutoRerollHandler {
         // クライアント側で処理し、かつスニーク中（Shiftを押している）のとき、そしてメインハンド
         if (event.getLevel().isClientSide() && event.getEntity().isShiftKeyDown() && event.getHand() == net.minecraft.world.InteractionHand.MAIN_HAND) {
             Player player = event.getEntity();
+            ItemStack mainHandStack = player.getMainHandItem();
+            if (!mainHandStack.is(Items.LECTERN)) return; //書見台をメインハンドに持ってない場合は無視
 
             // 指定したいブロック面をターゲットにする場合
             BlockPos clickedPos = event.getPos().relative(event.getFace());
