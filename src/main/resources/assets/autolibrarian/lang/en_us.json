@@ -42,8 +42,10 @@
   "status.autolibrarian.talk": "Contacting the villager...",
   "status.autolibrarian.check_trade": "Verifying transaction details...",
 
+  "message.autolibrarian.set_pos": "§eThe coordinates for the bookstand's placement have been set to §f(§c%1$s§f, §a%2$s§f, §b%3$s§f).",
+  "message.autolibrarian.out_of_pos": "§cThat position cannot be specified. Please reconsider the placement and try specifying it again.",
+  "message.autolibrarian.cannot_set_pos": "§cYou are either too far from the designated lectern placement coordinates, or no coordinates have been specified. Hold a lectern, crouch, and place it to set the coordinates.",
   "message.autolibrarian.no_target_book": "§cBefore enable AutoLibrarian, please first specify the enchanted books in the settings screen.",
-  "message.autolibrarian.not_enough_space": "§cThere is not enough space to run AutoLibrarian.",
   "message.autolibrarian.no_lectern": "§cTo use AutoLibrarian, please prepare a lectern in your hotbar.",
   "message.autolibrarian.axes_tip": "§bTip: Having an axe in your hotbar allows you to retrieve the lectern more quickly.",
   "message.autolibrarian.whynotuse_myaxes_tip": "§3§o(Axes with significantly reduced durability will not be used.)",

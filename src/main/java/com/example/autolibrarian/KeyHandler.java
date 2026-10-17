@@ -97,13 +97,13 @@ public class KeyHandler {
                             return;
                         }
                         // ホットバーのアイテムが「書見台（LECTERN）」かチェック
-                        if (!LecternChecker(mc)) {
-                            // 違う！
-                            Component msg = Component.translatable("message.autolibrarian.no_lectern");
-                            player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
-                            mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
-                            return;
-                        }
+//                        if (!LecternChecker(mc)) {
+//                            // 違う！
+//                            Component msg = Component.translatable("message.autolibrarian.no_lectern");
+//                            player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
+//                            mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
+//                            return;
+//                        }
                         // 書見台を持っているか、ホットバーにある！
                         // SEや通知と一緒にON
                         Set_isEnabled(mc, !Mod_isEnabled, false); // 反転

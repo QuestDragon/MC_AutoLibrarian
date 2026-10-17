@@ -17,17 +17,21 @@ import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+
+import static com.example.autolibrarian.KeyHandler.Set_isEnabled;
 
 @Mod.EventBusSubscriber(modid = "autolibrarian", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class AutoRerollHandler {
@@ -113,6 +117,43 @@ public class AutoRerollHandler {
         }
     }
 
+
+    // プレイヤーがスニーク右クリックで場所を指定した時の処理
+    public static void setTargetPosition(BlockPos pos, Player player, Level level) {
+        // 1. 距離の判定（例: プレイヤーから半径5ブロック以内か）
+        double distanceSq = player.blockPosition().distSqr(pos);
+        if (distanceSq > 5.0 * 5.0) {
+            Component msg = Component.translatable("message.autolibrarian.cannot_set_pos");
+            player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
+            player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
+        } else {
+            // 2. 範囲内であればターゲットとして確定
+            targetPos = pos;
+            Component msg = Component.translatable("message.autolibrarian.set_pos", targetPos.getX(), targetPos.getY(), targetPos.getZ());
+            player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
+            player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f); // 「金床の音」
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+        // クライアント側で処理し、かつスニーク中（Shiftを押している）のとき、そしてメインハンド
+        if (event.getLevel().isClientSide() && event.getEntity().isShiftKeyDown() && event.getHand() == net.minecraft.world.InteractionHand.MAIN_HAND) {
+            Player player = event.getEntity();
+
+            // 指定したいブロック面をターゲットにする場合
+            BlockPos clickedPos = event.getPos().relative(event.getFace());
+
+            // マネージャーに渡して判定・状態更新を行う
+            setTargetPosition(clickedPos, player, event.getLevel());
+
+            // デフォルトの右クリック動作（ブロック設置など）をキャンセル
+            event.setCanceled(true);
+            event.setCancellationResult(net.minecraft.world.InteractionResult.FAIL);
+        }
+    }
+
+    // ---------------------------------------------------------------------
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         // 処理の終了フェーズのみ実行、かつ機能がONの時だけ動作
@@ -120,6 +161,8 @@ public class AutoRerollHandler {
         // そのTickの終了の瞬間とこのイベントハンドラのPhaseが異なる場合（終了の瞬間でない場合）は何もしないという処理。
         // かかないと二重でこの処理が呼び出され、バグの原因となる。そのためその回避用にこのIFがある。
         Minecraft mc = Minecraft.getInstance();
+
+
         if (event.phase != TickEvent.Phase.END || !KeyHandler.Get_isEnabled()) {
             if (!KeyHandler.Get_isEnabled()) {
                 FirstEnabled = true; //次回Enabled時に初回限定処理がこれで動く。
@@ -137,17 +180,16 @@ public class AutoRerollHandler {
 
         // タイマーが0になると処理開始
 
-        // 1. targetPos が未設定なら、周囲から「書見台」または「設置用スペース」を探す
-        if (targetPos == null) {
-            // TargetPos＝書見台または設置スペースの位置
-            targetPos = findLecternOrSpace(mc);
-        }
+        // 1. targetPos が未設定
 
-        if (targetPos == null) {
-            Component msg = Component.translatable("message.autolibrarian.not_enough_space"); //Keyを使ってLang Jsonより取得
+        boolean TargetPosCheck = false;
+        if (targetPos != null) TargetPosCheck = CheckTargetPos(mc.player);
+        if (targetPos == null || !TargetPosCheck) {
+            // 違う！
+            Component msg = Component.translatable("message.autolibrarian.out_of_pos");
             mc.player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
-            KeyHandler.Set_isEnabled(mc, false, false);
-            // 周囲に書見台も置けるスペースもない場合は処理をスキップ
+            mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
+            Set_isEnabled(mc, false, false); // OFF
             return;
         }
 
@@ -180,6 +222,14 @@ public class AutoRerollHandler {
                     setState(mc, RerollState.WAIT_DESTROY, false); // ステータス表示とState Change
                     timer = 2;
                 } else if (currentState.is(Blocks.AIR)) {
+                    // 書見台を持っていないならOUT//
+                    if (!KeyHandler.ClientForgeEvents.LecternChecker(mc)){
+                        Component msg = Component.translatable("message.autolibrarian.missing_lectern");
+                        mc.player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
+                        mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
+                        return;
+                    }
+
                     // 既に空気ならそのまま村人チェックフェーズへ進む
                     setState(mc, RerollState.WAIT_UNEMPLOYED, false);
                 }
@@ -232,7 +282,7 @@ public class AutoRerollHandler {
                 if (LecternIndex < 0){
                     Component msg = Component.translatable("message.autolibrarian.missing_lectern"); //Keyを使ってLang Jsonより取得
                     mc.player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
-                    KeyHandler.Set_isEnabled(mc, false,false);
+                    Set_isEnabled(mc, false,false);
                     return; //処理終了
                 }else{
                     // 持ち替え
@@ -369,7 +419,7 @@ public class AutoRerollHandler {
                         // エンチャント本を発見！
                         // mc.player.sendSystemMessage(Component.literal("§aエンチャント本を発見しました！動作成功です！"));
                         mc.player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f); // 挑戦達成SE
-                        KeyHandler.Set_isEnabled(mc, false, false); // 自動化停止
+                        Set_isEnabled(mc, false, false); // 自動化停止
 
 
                         // --- After Operation の設定に応じた事後処理 ---
@@ -408,6 +458,13 @@ public class AutoRerollHandler {
         // player.sendSystemMessage(Component.literal("§e[AutoLibrarian] Current phase: " + State)); //チャットに出す場合の処理。
     }
 
+    private static boolean CheckTargetPos(Player player){
+        double distanceSq = player.blockPosition().distSqr(targetPos);
+        return !(distanceSq > 5.0 * 5.0);
+    }
+
+
+    // 現在は未使用
     private static BlockPos findLecternOrSpace(Minecraft mc) {
         if (mc.player == null || mc.level == null) return null;
 
