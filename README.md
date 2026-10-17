@@ -1,7 +1,7 @@
 # AutoLibrarian - Created By QuestDragon
 ## Version
 ### Product version
-1.0.3
+1.1.0
 
 ### Compatible with Minecraft version
 Forge 1.20.1 - 47.4.10
@@ -104,6 +104,8 @@ After operationが設定されている場合は指定された処理も同時�
 
 必要に応じて斧をご準備下さい。無くても動きますが、あると作業が早くなります。
 
+最初に書見台を置きたい場所をスニークしながら右クリックして座標指定しておきます。正常に指定できるとメッセージが表示されます。
+
 Minecraft内の操作設定で「動作の切替」に指定したキーを押すと有効になります。もう一度押すと無効になります。
 
 設定内容に合致したエンチャント本が取引内容に含まれると自動的に停止します。
@@ -164,6 +166,9 @@ Minecraftの言語設定に応じて本Modが表記する内容を編集する�
     "status.autolibrarian.talk": Mod動作時、村人の取引画面を表示しようとしている際に表示されるステータス内容
     "status.autolibrarian.check_trade": Mod動作時、村人の取引内容を確認している際に表示されるステータス内容
 
+	"message.autolibrarian.set_pos": 書見台の座標指定を正常に行った場合のメッセージ文（%1にX座標、%2にY座標、%3にZ座標が入ります）
+	"message.autolibrarian.out_of_pos": 書見台の座標指定時、指定できない座標に指定しようとした場合のメッセージ文
+	"message.autolibrarian.cannot_set_pos": Mod動作開始時、書見台の座標指定をしていないか、指定した座標から離れすぎている場合のメッセージ文
     "message.autolibrarian.no_target_book": Mod動作開始時、目的のエンチャント本を1つも指定していない場合のメッセージ文
     "message.autolibrarian.not_enough_space": Mod動作開始時、書見台を設置するスペースがない場合のメッセージ文
     "message.autolibrarian.no_lectern": Mod動作開始時、書見台をホットバーに入れてない場合のメッセージ文
