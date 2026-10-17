@@ -43,8 +43,8 @@
   "status.autolibrarian.check_trade": "取引内容確認中…",
 
   "message.autolibrarian.set_pos": "§e書見台の配置座標を§f（§c%1$s§f, §a%2$s§f, §b%3$s§f）§eに設定しました。",
-  "message.autolibrarian.out_of_pos": "§cその位置を指定することは出来ません。配置場所を再考の上、再度指定してください。",
-  "message.autolibrarian.cannot_set_pos": "§c指定された書見台の配置座標から離れすぎているか、指定されていません。書見台を持ち、スニークしながら配置して座標指定してください。",
+  "message.autolibrarian.cannot_set_pos": "§cその位置を指定することは出来ません。配置場所を再考の上、再度指定してください。",
+  "message.autolibrarian.out_of_pos": "§c指定された書見台の配置座標から離れすぎているか、指定されていません。書見台を持ち、スニークしながら配置して座標指定してください。",
   "message.autolibrarian.no_target_book": "§cAutoLibrarianを実行する前に、まず設定画面よりエンチャント本を指定してください。",
   "message.autolibrarian.no_lectern": "§cAutoLibrarianを使用するには、書見台をホットバーに準備して下さい。",
   "message.autolibrarian.axes_tip": "§bヒント：斧をホットバーに入れていると早く書見台を回収できます。",
