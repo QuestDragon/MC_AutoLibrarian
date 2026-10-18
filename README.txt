@@ -1,4 +1,4 @@
-AutoLibrarian - v1.1.1 (Created By QuestDragon)
+AutoLibrarian - v1.1.2 (Created By QuestDragon)
 
 ～作成した経緯～
 あるFabricのModには司書ガチャを自動で行ってくれる機能が入っていたんです。
@@ -24,7 +24,7 @@ Modの表記はMinecraftの言語設定に基づいて表示されるように�
 
 ～同梱物～
 zipファイルには以下のファイルが含まれています。
-AutoLibrarian-1.1.1+1.20.1-forge.jar：Mod本体ファイルです。
+AutoLibrarian-1.1.2+1.20.1-forge.jar：Mod本体ファイルです。
 Readme.txt：説明書です。（本ファイル）
 
 ～インストール～
