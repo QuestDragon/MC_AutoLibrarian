@@ -218,6 +218,7 @@ public class AutoRerollHandler {
                     if (AxeIndex > -1){ //斧シリーズを所有していればそれに持ち替えて
                         mc.player.getInventory().selected = AxeIndex;
                     }
+                    if (FirstEnabled) Set_isEnabled(mc, true, true, true); // 初回のみ：チェック完了。ONの通知。
                     mc.gameMode.startDestroyBlock(targetPos, Direction.UP);
                     mc.player.swing(InteractionHand.MAIN_HAND);
 
@@ -234,6 +235,7 @@ public class AutoRerollHandler {
                     }
 
                     // 既に空気ならそのまま村人チェックフェーズへ進む
+                    if (FirstEnabled) Set_isEnabled(mc, true, true, true); // 初回のみ：チェック完了。ONの通知。
                     setState(mc, RerollState.WAIT_UNEMPLOYED, false);
                 }
                 break;
@@ -256,7 +258,6 @@ public class AutoRerollHandler {
                 break;
 
             case WAIT_UNEMPLOYED: // 【2. 村人の無職チェック】村人がしっかり「無職」に戻るまで待機！
-                if (FirstEnabled) Set_isEnabled(mc, true, true, true); // 初回のみ：チェック完了。ONの通知。
                 if (VillagerChecker(mc, "none")) setState(mc,RerollState.PLACE, false); // 無職を確認できたので「設置」へ！
                 timer = 2;
                 break;
