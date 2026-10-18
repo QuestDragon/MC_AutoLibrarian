@@ -1,5 +1,6 @@
 package com.example.autolibrarian;
 
+import com.mojang.datafixers.types.templates.Check;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.core.BlockPos;
@@ -156,6 +157,7 @@ public class AutoRerollHandler {
     }
 
     // ---------------------------------------------------------------------
+
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         // 処理の終了フェーズのみ実行、かつ機能がONの時だけ動作
@@ -163,7 +165,6 @@ public class AutoRerollHandler {
         // そのTickの終了の瞬間とこのイベントハンドラのPhaseが異なる場合（終了の瞬間でない場合）は何もしないという処理。
         // かかないと二重でこの処理が呼び出され、バグの原因となる。そのためその回避用にこのIFがある。
         Minecraft mc = Minecraft.getInstance();
-
 
         if (event.phase != TickEvent.Phase.END || !KeyHandler.Get_isEnabled()) {
             if (!KeyHandler.Get_isEnabled()) {
@@ -187,11 +188,11 @@ public class AutoRerollHandler {
         boolean TargetPosCheck = false;
         if (targetPos != null) TargetPosCheck = CheckTargetPos(mc.player);
         if (targetPos == null || !TargetPosCheck) {
-            // 違う！
+            // 座標指定していないか、指定した座標から離れすぎた
             Component msg = Component.translatable("message.autolibrarian.out_of_pos");
             mc.player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
             mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
-            Set_isEnabled(mc, false, false); // OFF
+            Set_isEnabled(mc, false, !FirstEnabled, !FirstEnabled); // OFF ※通知は初回以外
             return;
         }
 
@@ -220,15 +221,15 @@ public class AutoRerollHandler {
                     mc.gameMode.startDestroyBlock(targetPos, Direction.UP);
                     mc.player.swing(InteractionHand.MAIN_HAND);
 
-                    FirstEnabled = false; //初回限定処理終了
                     setState(mc, RerollState.WAIT_DESTROY, false); // ステータス表示とState Change
                     timer = 2;
                 } else if (currentState.is(Blocks.AIR)) {
                     // 書見台を持っていないならOUT//
-                    if (!KeyHandler.ClientForgeEvents.LecternChecker(mc)){
-                        Component msg = Component.translatable("message.autolibrarian.missing_lectern");
+                    if (!KeyHandler.ClientForgeEvents.LecternChecker(mc)) {
+                        Component msg = FirstEnabled ? Component.translatable("message.autolibrarian.no_lectern") : Component.translatable("message.autolibrarian.missing_lectern");
                         mc.player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
                         mc.player.playSound(SoundEvents.ANVIL_PLACE, 1.0f, 1.0f); // 「金床の音」
+                        Set_isEnabled(mc, false, !FirstEnabled, !FirstEnabled); // OFF ※通知は初回以外
                         return;
                     }
 
@@ -255,13 +256,9 @@ public class AutoRerollHandler {
                 break;
 
             case WAIT_UNEMPLOYED: // 【2. 村人の無職チェック】村人がしっかり「無職」に戻るまで待機！
-                if (VillagerChecker(mc, "none")) {
-                    setState(mc,RerollState.PLACE, false); // 無職を確認できたので「設置」へ！
-                    timer = 2;
-                } else {
-                    // まだ司書の記憶が残っていれば数Tick待機（ここを通過しないと設置しない）
-                    timer = 2;
-                }
+                if (FirstEnabled) Set_isEnabled(mc, true, true, true); // 初回のみ：チェック完了。ONの通知。
+                if (VillagerChecker(mc, "none")) setState(mc,RerollState.PLACE, false); // 無職を確認できたので「設置」へ！
+                timer = 2;
                 break;
 
             case PLACE: // 2. 書見台を設置
@@ -280,11 +277,11 @@ public class AutoRerollHandler {
                         false
                 );
 
-                int LecternIndex = InvChanger(mc.player, false, true);
+                int LecternIndex = InvChanger(mc.player, false, true); //多分初回はDestroyのところで書見台チェックしてるからIndexには入ると思う…。
                 if (LecternIndex < 0){
                     Component msg = Component.translatable("message.autolibrarian.missing_lectern"); //Keyを使ってLang Jsonより取得
                     mc.player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
-                    Set_isEnabled(mc, false,false);
+                    Set_isEnabled(mc, false, !FirstEnabled, !FirstEnabled); // OFF ※通知は初回以外
                     return; //処理終了
                 }else{
                     // 持ち替え
@@ -421,7 +418,7 @@ public class AutoRerollHandler {
                         // エンチャント本を発見！
                         // mc.player.sendSystemMessage(Component.literal("§aエンチャント本を発見しました！動作成功です！"));
                         mc.player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f); // 挑戦達成SE
-                        Set_isEnabled(mc, false, false); // 自動化停止
+                        Set_isEnabled(mc, false, true, true); // 自動化停止
 
 
                         // --- After Operation の設定に応じた事後処理 ---
@@ -453,8 +450,10 @@ public class AutoRerollHandler {
 
                     setState(mc, RerollState.DESTROY, false);
                     timer = DELAY_TICKS;
+
+                    FirstEnabled = false; //初回限定処理終了
                 }
-                break;
+            break;
         }
 
         // player.sendSystemMessage(Component.literal("§e[AutoLibrarian] Current phase: " + State)); //チャットに出す場合の処理。

@@ -40,20 +40,15 @@ public class KeyHandler {
     public static boolean Get_isEnabled(){
         return Mod_isEnabled;
     }
-    public static boolean Set_isEnabled(Minecraft mc, boolean Enable, boolean IsSilent){
-        if (Enable != Mod_isEnabled){
-            Component msg;
-            Mod_isEnabled = Enable;
-            if (IsSilent) return Enable; //ここで終了
+    public static boolean Set_isEnabled(Minecraft mc, boolean Enable, boolean ShowMessage, boolean PlaySound){
+        Component msg;
+        Mod_isEnabled = Enable;
 
-            mc.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f); // SE
-            if (Enable){
-                msg = Component.translatable("general.autolibrarian.on");
-            }else {
-                msg = Component.translatable("general.autolibrarian.off");
-            }
-            mc.player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
-        }
+        if (PlaySound) mc.player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f); // SE
+        if (Enable) msg = Component.translatable("general.autolibrarian.on");
+        else msg = Component.translatable("general.autolibrarian.off");
+
+        if (ShowMessage) mc.player.sendSystemMessage(Component.literal(AutoLibrarian.ModPreFix + msg.getString()));
         return Enable;
     }
 
@@ -78,16 +73,12 @@ public class KeyHandler {
                 // マイクラゲーム本体を取得
                 Minecraft mc = Minecraft.getInstance();
 
-
-                Set_isEnabled(mc, !Mod_isEnabled, !Mod_isEnabled); // 反転、ModがFalse→Trueの場合のみサイレントON
+                Set_isEnabled(mc, !Mod_isEnabled, Mod_isEnabled, Mod_isEnabled); // 反転、OFF時のみ通知ON
 
                 Player player = mc.player;
                 // Nullチェック（ぬるぽ回避）
                 if (player != null) {
                     if (Mod_isEnabled) {
-                        Mod_isEnabled = false; //一旦静かにOFF
-                        ItemStack mainHandItem = mc.player.getMainHandItem();
-
                         if (ModConfig.TargetBooks.isEmpty()){
                             // 1個も欲しい本が無いのかい！？
                             // 違う！
@@ -105,8 +96,6 @@ public class KeyHandler {
 //                            return;
 //                        }
                         // 書見台を持っているか、ホットバーにある！
-                        // SEや通知と一緒にON
-                        Set_isEnabled(mc, !Mod_isEnabled, false); // 反転
                     }
                 }
             }

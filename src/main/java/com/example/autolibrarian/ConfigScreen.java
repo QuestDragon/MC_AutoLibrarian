@@ -299,7 +299,7 @@ public class ConfigScreen extends Screen {
             // ② 斧の最低耐久値設定…のボタン部分 ※ラベルはRenderメソッドに書いてあります。ラベルY位置を変えるにはAxeProtectionValueLabelPosの倍率を変えてください。 ※原則AxeYと同じ倍率値を使う
             int axeY = ComponentStartY + (ComponentMarginY * 4); // ボタンY位置
             this.addRenderableWidget(Button.builder(Component.literal("-"), b -> {
-                if (ModConfig.MinAxeDurability > 0) {
+                if (ModConfig.MinAxeDurability > 1) {
                     ModConfig.MinAxeDurability--;
                     // 設定ファイルに保存
                     ModConfig.save();
@@ -307,9 +307,12 @@ public class ConfigScreen extends Screen {
             }).bounds(centerX + AxeProtectionValueLabelPos.x, axeY, ComponentWidth / 10, ComponentHeight).build());
 
             this.addRenderableWidget(Button.builder(Component.literal("+"), b -> {
-                ModConfig.MinAxeDurability++;
-                // 設定ファイルに保存
-                ModConfig.save();
+                // MAXは木の斧耐久値まで。
+                if (ModConfig.MinAxeDurability < 60) {
+                    ModConfig.MinAxeDurability++;
+                    // 設定ファイルに保存
+                    ModConfig.save();
+                }
             }).bounds((int) (centerX + (AxeProtectionValueLabelPos.x * 2.25)), axeY, ComponentWidth / 10, ComponentHeight).build());
 
             // エンチャント本が見つかった際の処理切り替えボタン
@@ -528,7 +531,7 @@ public class ConfigScreen extends Screen {
         if (currentTab == 0) {
             // 3. マウスが耐久値設定のテキストの上に乗っているか判定してツールチップを描画 ※9はラベルの高さ。大体だけど…。
             if (mouseX >= AxeProtectionValueLabelStartX && mouseX <= centerX &&
-                    mouseY >= AxeProtectionValueLabelPos.y && mouseY <= AxeProtectionValueLabelPos.y + 10) {
+                    mouseY >= AxeProtectionValueLabelPos.y && mouseY <= AxeProtectionValueLabelPos.y + 20) {
 
                 // 画面サイズや \n に合わせて自動的に折り返し・改行したリストに変換 ※WithTooltipではなく、単体のRenderToolTipなので改行はこちらで行わないと画面からはみ出る。
                 Component AxeProtectionValueTips = Component.translatable("gui.autolibrarian.config_tips.axe_protection_value");
