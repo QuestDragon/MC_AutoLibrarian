@@ -444,7 +444,7 @@ public class ConfigScreen extends Screen {
                 } else {
                     // 【Remove 処理】選択中の本を ModConfig から削除
                     if (!this.selectedEnchantmentId.isEmpty()) {
-                        ModConfig.TargetBooks.removeIf(bb -> bb.enchantmentId.equals(this.selectedEnchantmentId));
+                        ModConfig.TargetBooks.removeIf(bb -> bb.enchantmentId.equals(this.selectedEnchantmentId) && bb.level == this.selectedLevel);
                         this.selectedEnchantmentId = "";
 
                         // 設定ファイルに保存
